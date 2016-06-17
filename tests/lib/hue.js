@@ -12,3 +12,8 @@ test('hue has config settings', (t) => {
     t.ok(hue.lights.length > 0, "has some lights");
 });
 
+test('can set light on', (t) => {
+    let hue = new Hue();
+    t.ok(hue.setLight({lightNumber: 3}), "light setting doesnt fail");
+    t.end();
+});
