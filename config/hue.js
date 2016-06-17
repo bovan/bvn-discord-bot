@@ -1,8 +1,10 @@
-// IP address to hue hub
-const ip = '192.168.0.100';
+module.exports = {
+    // IP address to hue hub
+    ip: '192.168.2.136',
 
-// hue username, retrieved by registering with hue-util
-const username  = '1234567890abcdef1234567890'
+    // hue username, retrieved by registering with hue-util
+    username: '',
 
-// light ids to use when updating without specifying light source
-const lights = [1,2,3]
+    // light ids to use when updating without specifying light source
+    lights: [1,2,3]
+}
