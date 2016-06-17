@@ -1,0 +1,20 @@
+{
+  "name": "bvn-discord-bot",
+  "version": "0.0.1",
+  "description": "simple bot for discord (designed for personal use)",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape tests/**/*.js"
+  },
+  "keywords": [
+    "bot",
+    "discord",
+    "node"
+  ],
+  "author": "Børge Antonsen",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^2.13.0",
+    "tape": "^4.5.1"
+  }
+}
