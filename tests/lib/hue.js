@@ -18,3 +18,30 @@ test('can set light on', (t) => {
     t.ok(hue.setLight({lightNumber: 3, on: false}), "turning off light");
     t.end();
 });
+
+test('emits event on change', (t) => {
+    let hue = new Hue();
+    // 2 successful tests
+    t.plan(2);
+    hue.on('lightChange', () => {
+        t.pass();
+    });
+    hue.on('lightError', () => {
+        t.fail('lightError should not be emitted on success');
+    });
+    hue.setLight({lightNumber: 3, color: 'green'});
+    hue.setLight({lightNumber: 3, on: false});
+});
+
+test('emits event on error', (t) => {
+    let hue = new Hue();
+    t.plan(1);
+    hue.on('lightError', () => {
+        t.pass();
+    });
+    hue.on('lightChange', () => {
+        t.fail('lightChange should not be emitted on fail');
+    });
+    // random absurdly high number to let it fail
+    hue.setLight({lightNumber: 1337, on: false});
+});
