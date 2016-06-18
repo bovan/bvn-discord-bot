@@ -19,6 +19,7 @@
     "tape": "^4.5.1"
   },
   "dependencies": {
-    "hue-util": "^1.1.4"
+    "hue-util": "^1.1.4",
+    "tinycolor2": "^1.3.0"
   }
 }
