@@ -45,3 +45,12 @@ test('emits event on error', (t) => {
     // random absurdly high number to let it fail
     hue.setLight({lightNumber: 1337, on: false});
 });
+
+test('should get async light info', (t) => {
+    t.plan(2);
+    let hue = new Hue();
+    return hue.getLights().then((lights) => {
+        t.ok((typeof lights === 'object' && lights !== null), "should return object");
+        t.ok(Object.keys(lights).length > 1, "should contain more than 1 light"); // because I have 3
+    });
+});
