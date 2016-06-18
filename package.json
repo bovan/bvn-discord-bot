@@ -4,7 +4,7 @@
   "description": "simple bot for discord (designed for personal use)",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/tap-prettify/bin/tap-prettify.js tests/**/*.js"
+    "test": "node node_modules/tap-prettify/bin/tap-prettify.js tests/**/*.js || true"
   },
   "keywords": [
     "bot",
