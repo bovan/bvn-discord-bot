@@ -22,8 +22,10 @@ module.exports = class Actions {
     }
 
     handle(msg, cmd) {
-        if (this.cmds[cmd])
+        if (this.cmds[cmd]) {
+            console.log("got cmd " + cmd + " from " + msg.author.username);
             this.cmds[cmd](msg);
+        }
     }
 
     isAdmin(msg) {

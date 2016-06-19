@@ -18,7 +18,6 @@ module.exports = class Bot {
         this.client.on('message', (msg) => {
             let cmd = msg.content.trim().split(' ')[0];
             if (cmd.length > 0) {
-                console.log("got cmd " + cmd + " from " + msg.author);
                 this.actions.handle(msg, cmd);
             }
         });
