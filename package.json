@@ -15,6 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^2.13.0",
+    "feedparser": "^1.1.4",
+    "moment": "^2.13.0",
     "tap-prettify": "0.0.2",
     "tape": "^4.5.1"
   },
