@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "build/",
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "rootDir": "./"
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "formatCodeOptions": {
+        "indentSize": 4,
+        "tabSize": 4,
+        "newLineCharacter": "\r\n",
+        "convertTabsToSpaces": true,
+        "insertSpaceAfterCommaDelimiter": true,
+        "insertSpaceAfterSemicolonInForStatements": true,
+        "insertSpaceBeforeAndAfterBinaryOperators": true,
+        "insertSpaceAfterKeywordsInControlFlowStatements": true,
+        "insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+        "insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+        "placeOpenBraceOnNewLineForFunctions": false,
+        "placeOpenBraceOnNewLineForControlBlocks": false
+    },
+    "files": [
+        "index.ts",
+        "index.d.ts",
+        "typings/index.d.ts",
+        "typings/discord.d.ts",
+        "typings/feedparser.d.ts",
+        "typings/hue-util.d.ts"
+    ]
+}

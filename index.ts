@@ -1,5 +1,4 @@
-
-const Bot = require('./src/Bot');
+import { Bot } from './src/Bot';
 
 let bot = new Bot();
 bot.login();

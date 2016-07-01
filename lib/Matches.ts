@@ -1,12 +1,23 @@
-'use strict';
+import FeedParser = require('feedparser');
+import moment = require('moment');
+import request = require('request');
+import { EventEmitter } from 'events';
 
-const URL = 'http://www.hltv.org/hltv.rss.php?pri=15';
-const FeedParser = require('feedparser');
-const moment = require('moment');
-const request = require('request');
-const EventEmitter = require('events').EventEmitter;
+export interface MatchList {
+    [match: number]: {
+        match : string,
+        time : string,
+        clock: string,
+        link : string,
+        timestamp: number,
+        desc: string
+    }
+    push: Function;
+}
 
-module.exports = class Matches extends EventEmitter {
+export class Matches extends EventEmitter {
+    private URL = 'http://www.hltv.org/hltv.rss.php?pri=15';
+
     constructor() {
         super();
     }
@@ -15,9 +26,9 @@ module.exports = class Matches extends EventEmitter {
         let p = new Promise(
             (resolve, reject) => {
                 let parser = new FeedParser();
-                let buffer = [];
+                let buffer:MatchList = [];
 
-                parser.on('error', (err) => {
+                parser.on('error', (err: Error) => {
                     console.log("err", err);
                     reject(err);
                 });
@@ -26,10 +37,10 @@ module.exports = class Matches extends EventEmitter {
                     resolve(buffer);
                 });
 
-                parser.on('readable', this.onReadable.bind(parser, buffer));
+                parser.on('readable', () => this.onReadable(parser, buffer));
 
-                request(URL)
-                    .on('error', (err) => {
+                request(this.URL)
+                    .on('error', (err: Error) => {
                         console.error(err);
                         reject(err);
                     })
@@ -47,11 +58,9 @@ module.exports = class Matches extends EventEmitter {
         return p;
     }
 
-    onReadable(buffer) {
-        const meta = this.meta;
-        let item;
-
-        while (item = this.read()) {
+    onReadable(parser: any, buffer: MatchList) {
+        let item: any;
+        while (item = parser.read()) {
             let title = item.title.replace(new RegExp("No team", 'g'), '--TBD-- ');
             let time = moment(item.date, 'ddd MMM DD YYYY HH:mm:ss');
             buffer.push({

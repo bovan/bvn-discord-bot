@@ -1,42 +1,53 @@
-'use strict';
+import Discord = require('discord.js');
+import { HueManager } from '../lib/HueManager';
+import { Matches } from '../lib/Matches';
+import { Users } from '../config/users';
 
-const Hue = require('../lib/hue.js');
-const Matches = require('../lib/Matches.js');
-const users = require('../config/users.js');
+interface ActionsCommands {
+    [cmd: string]: Function;
+}
 
-module.exports = class Actions {
+export class Actions {
+    private hue: HueManager;
+    private matches: Matches;
+    private cmds: ActionsCommands;
+
     constructor() {
-        this.hue = new Hue();
+        this.hue = new HueManager();
         this.matches = new Matches();
         this.cmds = {
-            '!hello': (msg) => {
-                msg.reply('Hello there!');
-            },
-            '!lights': (msg) => {
-                this.hue.getLights().then((lights) => {
-                    msg.reply(this.hue.lightsToStrings(lights));
-                });
-            },
-            '!admin': (msg) => {
-                msg.reply((this.isAdmin(msg)) ? 'is admin' : 'is not admin');
-            },
-            '!matches': this.getMatches.bind(this)
-            };
+            '!hello': this.sayHello,
+            '!lights': this.getLights,
+            '!admin': this.isAdmin,
+            '!matches': this.getMatches
+        };
     }
 
-    handle(msg, cmd) {
+    handle(msg: Discord.Message, cmd: string) {
         if (this.cmds[cmd]) {
             console.log("got cmd " + cmd + " from " + msg.author.username);
-            this.cmds[cmd](msg);
+            this.cmds[cmd].call(this, msg);
         }
     }
 
-    isAdmin(msg) {
-        return users.admin.indexOf(msg.author.id) >= 0;
+    sayHello(msg: Discord.Message) {
+        msg.reply('Hello there!');
     }
 
-    getMatches(msg) {
-        this.matches.getMatches().then((data) => {
+    isAdmin(msg: Discord.Message) {
+        let admin = (Users.admin.indexOf(msg.author.id) >= 0);
+        msg.reply(admin ? 'is admin' : 'is not admin');
+    }
+
+    getLights(msg: Discord.Message) {
+        let hue = this.hue;
+        hue.getLights().then((lights) => {
+            msg.reply(hue.lightsToStrings(lights));
+        });
+    }
+
+    getMatches(msg: Discord.Message) {
+        this.matches.getMatches().then((data: any) => {
             if (data.length > 0) {
                 let str = " - **MATCHES ON HLTV** - \n`";
                 // get max length of line
@@ -60,7 +71,7 @@ module.exports = class Actions {
                 msg.reply(str);
             }
         })
-        .catch((err) => {
+        .catch((err: Error) => {
             console.log(err);
             msg.reply("No matches found, check www.hltv.org");
         })
