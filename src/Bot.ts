@@ -4,7 +4,7 @@ import { Actions } from './Actions';
 
 export class Bot {
     private client: Discord.Client;
-    private loginTimer: WindowTimers;
+    private loginTimer: number;
     private actions: Actions;
 
     constructor() {
