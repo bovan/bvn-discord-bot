@@ -34,11 +34,11 @@ export class HueManager extends EventEmitter {
         // set up hue interface
         this.hue = new Hue('hue-util', this.ip, this.username, username => this.onUsernameChange(username));
     }
-    test () {
+    test() {
 
     }
 
-    onUsernameChange (newUsername: string) {
+    onUsernameChange(newUsername: string) {
         this.username = newUsername;
     }
 
@@ -51,7 +51,7 @@ export class HueManager extends EventEmitter {
      *  on: true/false
      * }
      */
-    setLight (opts: HueOptions) {
+    setLight(opts: HueOptions) {
         opts = Object.assign({}, this.options, opts);
 
         let p = new Promise(
@@ -72,7 +72,7 @@ export class HueManager extends EventEmitter {
         return p;
     }
 
-    getLights (): Promise<HueLights> {
+    getLights(): Promise<HueLights> {
         let p = new Promise(
             (resolve, reject) => {
                 this.hue.getLights((err: Error, resp: Object) => {
@@ -87,7 +87,7 @@ export class HueManager extends EventEmitter {
         return p;
     }
 
-    lightToString (light: HueLight): string {
+    lightToString(light: HueLight): string {
         let str = '';
         str += light.name + ' - ';
         str += this.lightStateToString(light.state);
@@ -95,7 +95,7 @@ export class HueManager extends EventEmitter {
     }
 
     // tailored for discord output
-    lightsToStrings (lights: HueLights): string {
+    lightsToStrings(lights: HueLights): string {
         let str = "Lights:\n";
         for (let key in lights) {
             // TODO: literals
@@ -104,7 +104,7 @@ export class HueManager extends EventEmitter {
         return str;
     }
 
-    lightStateToString (state: HueLightState): string {
+    lightStateToString(state: HueLightState): string {
         let color: any;
 
         // first: off or offline
