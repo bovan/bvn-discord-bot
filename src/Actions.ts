@@ -1,6 +1,7 @@
 import Discord = require('discord.js');
 import { HueManager } from '../lib/HueManager';
 import { Matches } from '../lib/Matches';
+import { News } from '../lib/HltvNews';
 import { Users } from '../config/users';
 
 interface ActionsCommands {
@@ -10,16 +11,19 @@ interface ActionsCommands {
 export class Actions {
     private hue: HueManager;
     private matches: Matches;
+    private news: News;
     private cmds: ActionsCommands;
 
     constructor() {
         this.hue = new HueManager();
         this.matches = new Matches();
+        this.news = new News();
         this.cmds = {
             '!hello': this.sayHello,
             '!lights': this.getLights,
             '!admin': this.isAdmin,
-            '!matches': this.getMatches
+            '!matches': this.getMatches,
+            '!news' : this.getNews
         };
     }
 
@@ -46,8 +50,26 @@ export class Actions {
         });
     }
 
+    getNews(msg: Discord.Message) {
+        this.news.getRss().then((data: any) => {
+            if (data.length > 0) {
+                let str: string = '';
+                str += "HLTV News \n";
+                for (let i = 0; i < data.length; i++) {
+                    str += data[i].title
+                    str += ' ';
+                    str += data[i].time;
+                    str += ' ';
+                    str += data[i].link;
+                    str += "\n";
+                    }
+                msg.reply(str);
+            }
+        });
+    }
+
     getMatches(msg: Discord.Message) {
-        this.matches.getMatches().then((data: any) => {
+        this.matches.getRss().then((data: any) => {
             if (data.length > 0) {
                 let str = " - **MATCHES ON HLTV** - \n`";
                 // get max length of line
