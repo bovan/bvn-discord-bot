@@ -56,13 +56,9 @@ export class Actions {
                 let str: string = '';
                 str += "HLTV News \n";
                 for (let i = 0; i < data.length; i++) {
-                    str += data[i].title
-                    str += ' ';
-                    str += data[i].time;
-                    str += ' ';
-                    str += data[i].link;
-                    str += "\n";
-                    }
+                    let item: Map<string, string> = data[i];
+                    str += `${item.get('title')} ${item.get('time')} - ${item.get('link')}\n`;
+                }
                 msg.reply(str);
             }
         });
@@ -75,21 +71,22 @@ export class Actions {
                 // get max length of line
                 let maxLength = 0;
                 for (let i = 0; i < data.length; i++) {
-                    if (data[i].match.length > maxLength)
-                        maxLength = data[i].match.length;
+                    let title = data[i].get('match');
+                    if (title.length > maxLength)
+                        maxLength = title.length;
                 }
                 // add 3 to because space is <3
                 maxLength = maxLength + 3;
                 for (let i = 0; i < data.length; i++) {
-                    str += data[i].match
-                    let k = maxLength - data[i].match.length;
-                    for (let j = 0; j < k; j++)
+                    let item: Map<string, string> = data[i];
+                    str += item.get('match');
+                    let k = maxLength - item.get('match').length;
+                    for (let j = 0; j < k; j++) {
                         str += ' ';
-                        str += data[i].clock + '(';
-                        str += data[i].time + ')';
-                        str += ((i + 1) < data.length) ? "\n" : '`';
                     }
-
+                    str += ` ${item.get('clock')} (${item.get('time')})`;
+                    str += ((i + 1) < data.length) ? "\n" : '`';
+                }
                 msg.reply(str);
             }
         })
