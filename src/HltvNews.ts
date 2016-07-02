@@ -1,7 +1,7 @@
 import FeedParser = require('feedparser');
 import moment = require('moment');
 import request = require('request');
-import { RssReader, RssList } from './rssreader';
+import { RssReader, RssList } from '../lib/rssreader';
 
 export class News extends RssReader {
     private rssReader: RssReader;

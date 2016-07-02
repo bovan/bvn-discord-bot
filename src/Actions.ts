@@ -1,7 +1,7 @@
 import Discord = require('discord.js');
 import { HueManager } from '../lib/HueManager';
-import { Matches } from '../lib/Matches';
-import { News } from '../lib/HltvNews';
+import { Matches } from './Matches';
+import { News } from './HltvNews';
 import { Users } from '../config/users';
 
 interface ActionsCommands {
