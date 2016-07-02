@@ -5,11 +5,20 @@ import Hue = require('hue-util');
 import tinycolor = require ('tinycolor2');
 import { EventEmitter } from 'events';
 
+export interface HueOptions {
+    useGroup?: boolean;
+    on?: boolean;
+    color?: string;
+    transitiontime?: number;
+    lightNumber?: number;
+    brightness?: number;
+}
+
 export class HueManager extends EventEmitter {
-    private options: HueOptions;
+    public options: HueOptions;
     private ip: string;
     private username: string;
-    private lights: number[];
+    public lights: number[];
     private mainLight: number;
     private hue: any;
 
@@ -27,7 +36,7 @@ export class HueManager extends EventEmitter {
             on: true,
             color: 'red',
             transitiontime: 2,
-            lightNumber: [this.mainLight],
+            lightNumber: this.mainLight,
             brightness: 200
         };
 
