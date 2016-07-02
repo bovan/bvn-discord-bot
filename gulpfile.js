@@ -11,9 +11,9 @@ gulp.task('build', () => {
 });
 
 gulp.task('test', function() {
-    //find test code - note use of 'base'
+    // get tests files
     return gulp.src('./tests/*.ts')
-    /*transpile*/
+    /* transpile */
     .pipe(ts({
         "target": "es6",
         "module": "commonjs",
@@ -23,12 +23,12 @@ gulp.task('test', function() {
         "noEmitOnError": true,
         "rootDir": "./"
     }))
-    /*flush to disk*/
+    /* throw it in with the rest */
     .pipe(gulp.dest('build/'))
-    /*execute tests*/
+    /* does it pass? */
     .pipe(mocha({
         reporter: 'progress'
     }));
 });
-/* single command to hook into VS Code */
+
 gulp.task('default', ['build','test']);
