@@ -11,13 +11,13 @@ export class News extends RssReader {
         this.url = 'http://www.hltv.org/news.rss.php';
     }
 
-    parse(item: any) {
+    parse(item: any): Map<string, string> {
+        var ret = new Map();
         let title = item.title.replace(new RegExp("No team", 'g'), '--TBD-- ');
         let time = moment(item.date, 'ddd MMM DD YYYY HH:mm:ss');
-        return {
-            title : item.title,
-            time : time.format('HH:mm') + ' CET ',
-            link : item.link
-        };
+        ret.set('title', item.title);
+        ret.set('time', time.format('HH:mm') + ' CET ');
+        ret.set('link', item.link);
+        return ret;
     }
 }

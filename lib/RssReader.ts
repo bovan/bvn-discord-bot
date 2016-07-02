@@ -3,14 +3,7 @@ import moment = require('moment');
 import request = require('request');
 
 export interface RssList {
-    [index: number]: {
-        title : string,
-        time : string,
-        clock: string,
-        link : string,
-        timestamp: number,
-        desc?: string
-    }
+    [index: number]: Map<string, string>;
     push: Function;
 }
 
@@ -19,7 +12,6 @@ export class RssReader  {
     public url: string = '';
 
     constructor() {
-
     }
 
     getRss(): Promise<RssList> {
@@ -68,7 +60,11 @@ export class RssReader  {
         }
     }
 
-    parse(item: any): Object {
-        return item;
+    parse(item: any): Map<string, string> {
+        var ret = new Map();
+        Object.keys(item).forEach((key) => {
+            ret.set(key, item[key]);
+        });
+        return ret;
     }
 }
