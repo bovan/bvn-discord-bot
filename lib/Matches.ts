@@ -14,7 +14,7 @@ export class Matches extends RssReader {
     parse(item: any): Map<string, string> {
         let title = item.title.replace(new RegExp("No team", 'g'), '--TBD-- ');
         let time = moment(item.date, 'ddd MMM DD YYYY HH:mm:ss');
-        var ret = new Map();
+        let ret = new Map();
 
         ret.set('match', title);
         ret.set('time', (time.unix() < moment().unix()) ? 'LIVE' : time.fromNow());
