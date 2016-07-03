@@ -4,7 +4,10 @@
   "description": "simple bot for discord (designed for personal use)",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/tap-prettify/bin/tap-prettify.js tests/**/*.js || true"
+    "test": "gulp"
+  },
+  "directories": {
+    "tests": "tests/"
   },
   "keywords": [
     "bot",
@@ -14,11 +17,18 @@
   "author": "Børge Antonsen",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0",
     "eslint": "^2.13.0",
     "feedparser": "^1.1.4",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-typescript": "^2.13.6",
+    "mocha": "^2.5.3",
     "moment": "^2.13.0",
-    "tap-prettify": "0.0.2",
-    "tape": "^4.5.1"
+    "node-persist": "0.0.11",
+    "tslint": "^3.13.0-dev.0",
+    "typescript": "^2.0.0-dev.20160703"
   },
   "dependencies": {
     "discord.js": "^8.0.0",

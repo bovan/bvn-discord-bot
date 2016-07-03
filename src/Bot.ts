@@ -1,10 +1,12 @@
-'use strict';
+import Discord = require('discord.js');
+import { BotOptions } from '../config/bot';
+import { Actions } from './Actions';
 
-const Discord = require('discord.js');
-const config = require('../config/bot.js');
-const Actions = require('./Actions.js');
+export class Bot {
+    private client: Discord.Client;
+    private loginTimer: number;
+    private actions: Actions;
 
-module.exports = class Bot {
     constructor() {
         this.client = new Discord.Client({
             autoReconnect : true
@@ -15,7 +17,7 @@ module.exports = class Bot {
     }
 
     setupEvents() {
-        this.client.on('message', (msg) => {
+        this.client.on('message', (msg: Discord.Message) => {
             let cmd = msg.content.trim().split(' ')[0];
             if (cmd.length > 0) {
                 this.actions.handle(msg, cmd);
@@ -24,6 +26,6 @@ module.exports = class Bot {
     }
 
     login() {
-        this.client.loginWithToken(config.token);
+        this.client.loginWithToken(BotOptions.token);
     }
 };

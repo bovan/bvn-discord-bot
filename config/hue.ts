@@ -1,4 +1,4 @@
-module.exports = {
+export const hueConfig = {
     // IP address to hue hub
     ip: '192.168.2.136',
 
@@ -6,5 +6,7 @@ module.exports = {
     username: '',
 
     // light ids to use when updating without specifying light source
-    lights: [1,2,3]
+    lights: [1,2,3],
+
+    mainLight: 3
 }
