@@ -17,14 +17,20 @@ describe('HueManager', () => {
         subject = new HueManager();
     });
 
+    after(() => {
+        let hue = new HueManager();
+        hue.setLight({lightNumber: 3, on: false})
+    })
+
     describe('#setLight', () => {
         context('when calling', () => {
             it('should set light without error', (done) => {
                 let hue = new HueManager();
                 hue.setLight({lightNumber: 3})
                 .then((resp: any) => {
-                    assert(Array.isArray(resp), "response is array");
-                    Object.keys(resp).forEach((key) => {
+                    let keys = Object.keys(resp);
+                    assert.equal(5, keys.length, "response should have 5 keys");
+                    keys.forEach((key) => {
                         expect(resp[key].hasOwnProperty('success'), 'all keys should be success');
                     })
                     done();
