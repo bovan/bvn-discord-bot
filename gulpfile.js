@@ -1,8 +1,10 @@
 var gulp = require('gulp');
 var ts = require('gulp-typescript');
 var mocha = require('gulp-mocha');
-
-var tsProject = ts.createProject('./tsconfig.json');
+var typescript =  require('typescript');
+var tsProject = ts.createProject('./tsconfig.json', {
+    "typescript": typescript,
+});
 
 gulp.task('build', () => {
     return tsProject.src()
@@ -15,6 +17,7 @@ gulp.task('test', function() {
     return gulp.src('./tests/*.ts')
     /* transpile */
     .pipe(ts({
+        "typescript": typescript,
         "target": "es6",
         "module": "commonjs",
         "noImplicitAny": true,
